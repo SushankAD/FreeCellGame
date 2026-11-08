@@ -1,0 +1,17 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"label": "FreeCell: Run",
+			"type": "process",
+			"command": "${env:HOME}/.local/bin/mvn",
+			"args": [
+				"javafx:run"
+			],
+			"options": {
+				"cwd": "${workspaceFolder}"
+			},
+			"problemMatcher": []
+		}
+	]
+}

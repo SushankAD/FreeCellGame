@@ -1,0 +1,19 @@
+{
+	"version": "0.2.0",
+	"configurations": [
+		{
+			"type": "java",
+			"name": "FreecellWindow",
+			"request": "launch",
+			"mainClass": "FreecellWindow",
+			"projectName": "freecell"
+		},
+		{
+			"type": "java",
+			"name": "FreecellTestSuite",
+			"request": "launch",
+			"mainClass": "FreecellTestSuite",
+			"projectName": "freecell"
+		}
+	]
+}

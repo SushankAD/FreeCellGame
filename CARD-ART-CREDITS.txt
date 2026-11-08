@@ -1,0 +1,16 @@
+Card face artwork attribution
+=============================
+
+Artist: David Bellot
+Source deck: SVG Cards, https://svg-cards.sourceforge.net/
+Wikimedia Commons source category:
+https://commons.wikimedia.org/wiki/Category:SVG_playing_cards_4
+License: GNU Lesser General Public License (LGPL), as identified on the
+individual Wikimedia Commons file pages. Attribution is required.
+License information: https://www.gnu.org/licenses/lgpl.html
+
+The PNG images in assets/cards/ are 250-pixel-wide Wikimedia Commons
+thumbnails rendered from David Bellot's SVG card files. The filenames use
+standard rank/suit codes (for example, JD.png is the Jack of Diamonds).
+The images are bundled with this project; retain this notice when
+redistributing them and follow the LGPL terms.
