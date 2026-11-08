@@ -25,7 +25,7 @@ deal for the current app session.
 The toolbar timer shows elapsed minutes and seconds; it resets on a new deal
 and pauses when you win. At launch, the rules appear over the board; choose
 **I understand — Start playing** to begin. Completing all foundations opens a
-large victory dialog with your move count and time.
+victory dialog with your move count and time.
 
 The card-face images are stored in `assets/cards/`. Their creator, source, and
 license information is documented in [CARD-ART-CREDITS.txt](CARD-ART-CREDITS.txt).
