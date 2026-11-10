@@ -267,7 +267,7 @@ public class FreecellWindow extends Application {
 		activity.setPadding(new Insets(4, 16, 4, 16));
 		activity.setStyle("-fx-background-color: #f0f3e9; -fx-background-radius: 10;");
 		addStat(activity, "Deals abandoned", Integer.toString(dealsAbandoned));
-		addStat(activity, "Moves this deal", Integer.toString(moveCount));
+		addStat(activity, "Moves in this deal", Integer.toString(moveCount));
 
 		statisticsTimeLabel = new Label("Time in this deal: " + formatElapsedTime());
 		statisticsTimeLabel.setMaxWidth(Double.MAX_VALUE);
