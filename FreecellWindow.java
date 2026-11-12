@@ -38,7 +38,7 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 
 public class FreecellWindow extends Application {
-	private static final boolean DEMO_ONE_MOVE_FROM_WIN = false;
+	private static final boolean DEMO_ONE_MOVE_FROM_WIN = true;
 	private static final Color FELT = Color.rgb(28, 91, 71);
 	private static final Color WARM_WHITE = Color.rgb(250, 248, 239);
 	private static final Color GOLD = Color.rgb(232, 190, 104);
@@ -148,6 +148,8 @@ public class FreecellWindow extends Application {
 	}
 
 	private void setStatusText(String message) {
+		statusPanel.setManaged(true);
+		statusPanel.setVisible(true);
 		TextFlow replacement = new TextFlow();
 		replacement.setTextAlignment(TextAlignment.LEFT);
 		replacement.setLineSpacing(3);
@@ -439,18 +441,55 @@ public class FreecellWindow extends Application {
 	}
 
 	private void showWinDialog() {
+		Label eyebrow = new Label("FREECELL  /  DEAL COMPLETE");
+		eyebrow.setFont(Font.font("System", FontWeight.BOLD, 11));
+		eyebrow.setTextFill(Color.rgb(119, 88, 34));
+		Label heading = new Label("You won!");
+		heading.setFont(Font.font("Georgia", FontWeight.BOLD, 26));
+		heading.setTextFill(DARK_GREEN);
+		Label subtitle = new Label("A summary of your completed deal.");
+		subtitle.setFont(Font.font("System", 14));
+		subtitle.setTextFill(MUTED_INK);
+		VBox header = new VBox(5, eyebrow, heading, subtitle);
+
+		HBox highlights = new HBox(12,
+				createStatCard("MOVES", Integer.toString(moveCount), true),
+				createStatCard("TIME", formatElapsedTime(), false));
+		highlights.setAlignment(Pos.CENTER);
+		VBox resultSummary = new VBox(0);
+		resultSummary.setPadding(new Insets(4, 16, 4, 16));
+		resultSummary.setStyle("-fx-background-color: #f0f3e9; -fx-background-radius: 10;");
+		addStat(resultSummary, "Cards home", "52 / 52");
+		addStat(resultSummary, "Deal status", "Complete");
+
+		Label congratulations = new Label("All 52 cards are home. Well played!");
+		congratulations.setMaxWidth(Double.MAX_VALUE);
+		congratulations.setPadding(new Insets(16, 18, 16, 18));
+		congratulations.setStyle("-fx-background-color: #14362c; -fx-background-radius: 10; "
+				+ "-fx-text-fill: #e8be68; -fx-font-size: 15px; -fx-font-weight: bold; "
+				+ "-fx-font-family: monospace;");
+		VBox content = new VBox(18, header, highlights, resultSummary, congratulations);
+		content.setPadding(new Insets(18));
+		content.setStyle("-fx-background-color: #faf8ef;");
+
 		Dialog<ButtonType> dialog = new Dialog<>();
 		dialog.initOwner(stage);
 		dialog.setTitle("FreeCell complete!");
-		dialog.setHeaderText("YOU WON!");
-
-		Label details = new Label("All 52 cards are home.\n\nCompleted in " + moveCount
-				+ " moves and " + formatElapsedTime() + ".");
-		details.setStyle("-fx-font-size: 18px; -fx-text-fill: #14362c;");
-		dialog.getDialogPane().setContent(details);
+		dialog.setHeaderText(null);
+		dialog.getDialogPane().setGraphic(null);
+		dialog.getDialogPane().setContent(content);
 		ButtonType keepBoard = new ButtonType("Keep looking at the board", ButtonBar.ButtonData.CANCEL_CLOSE);
 		ButtonType newDeal = new ButtonType("Play another deal", ButtonBar.ButtonData.OK_DONE);
 		dialog.getDialogPane().getButtonTypes().setAll(keepBoard, newDeal);
+		dialog.getDialogPane().setMinWidth(560);
+		dialog.getDialogPane().setPrefWidth(560);
+		dialog.getDialogPane().setStyle("-fx-background-color: #faf8ef;");
+		Button keepBoardButton = (Button) dialog.getDialogPane().lookupButton(keepBoard);
+		keepBoardButton.setStyle("-fx-background-color: #f0f3e9; -fx-text-fill: #14362c; "
+				+ "-fx-font-weight: bold; -fx-background-radius: 6; -fx-padding: 8 14 8 14;");
+		Button newDealButton = (Button) dialog.getDialogPane().lookupButton(newDeal);
+		newDealButton.setStyle("-fx-background-color: #14362c; -fx-text-fill: #faf8ef; "
+				+ "-fx-font-weight: bold; -fx-background-radius: 6; -fx-padding: 8 20 8 20;");
 		Optional<ButtonType> result = dialog.showAndWait();
 		if (result.isPresent() && result.get() == newDeal) {
 			startNewDeal();
@@ -543,8 +582,8 @@ public class FreecellWindow extends Application {
 						gameCompleted = true;
 						gamesWon++;
 						clockTimer.stop();
-						setStatusText("You won in " + moveCount + " moves and "
-								+ formatElapsedTime() + "!");
+						statusPanel.setVisible(false);
+						statusPanel.setManaged(false);
 						requestBoardDraw();
 						showWinDialog();
 						return;
