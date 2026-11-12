@@ -38,7 +38,7 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 
 public class FreecellWindow extends Application {
-	private static final boolean DEMO_ONE_MOVE_FROM_WIN = true;
+	private static final boolean DEMO_ONE_MOVE_FROM_WIN = false;
 	private static final Color FELT = Color.rgb(28, 91, 71);
 	private static final Color WARM_WHITE = Color.rgb(250, 248, 239);
 	private static final Color GOLD = Color.rgb(232, 190, 104);
