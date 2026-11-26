@@ -16,29 +16,7 @@ public class FreecellTestSuite {
 		testGameMoveEdgeCases();
 		testIllegalGameMoveIsTransactional();
 		testGameAcrossDeals();
-		testElapsedTimeFormatting();
-		testWinRateFormatting();
 		System.out.println("All FreeCell tests passed.");
-	}
-
-	private static void testElapsedTimeFormatting() {
-		assert "00:00".equals(FreecellWindow.formatElapsedTime(0)) : "timer formats zero";
-		assert "00:59".equals(FreecellWindow.formatElapsedTime(59)) : "timer formats seconds";
-		assert "01:00".equals(FreecellWindow.formatElapsedTime(60)) : "timer rolls over to minutes";
-		assert "02:05".equals(FreecellWindow.formatElapsedTime(125))
-				: "timer formats minutes and seconds";
-		assert "100:00".equals(FreecellWindow.formatElapsedTime(6000))
-				: "timer supports sessions longer than 99 minutes";
-	}
-
-	private static void testWinRateFormatting() {
-		assert "0%".equals(FreecellWindow.formatWinRate(0, 0))
-				: "win rate displays percent with no concluded deals";
-		assert "0%".equals(FreecellWindow.formatWinRate(0, 1)) : "zero wins display percent";
-		assert "33%".equals(FreecellWindow.formatWinRate(1, 3))
-				: "win rate rounds to a whole percent";
-		assert "100%".equals(FreecellWindow.formatWinRate(2, 2))
-				: "all wins display full percentage";
 	}
 
 	private static void testCardArt() {

@@ -52,6 +52,6 @@ public class Freecell {
 	}
 
 	public static void main(String[] args) {
-		FreecellWindow.main(args);
+		FreecellApplication.main(args);
 	}
 }

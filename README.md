@@ -1,34 +1,35 @@
 # FreeCell
 
-A Java implementation of FreeCell with a JavaFX graphical interface.
+A full-stack FreeCell web application built with Java, Spring Boot, React,
+and TypeScript. The Java engine remains independent of the web presentation
+layer, with a REST API and a responsive browser UI.
 
 ## Requirements
 
 - Java Development Kit (JDK) 21 or newer
 - Apache Maven 3.9 or newer
-
-JavaFX is managed by Maven and does not need to be installed separately.
+- Node.js 20 or newer
+- npm
 
 ## Run the game
 
 ```sh
-mvn javafx:run
+mvn spring-boot:run
 ```
 
-The Maven build copies the card images from `assets/cards/` automatically.
+Open http://localhost:8080. The Spring Boot application serves the React
+single-page application and exposes the game through `/api/game`.
 
-The welcome screen includes the rules. Click a stack to select its top card,
-then click another stack to try the move. Use **Undo** to reverse the last
-successful move, or **New deal** to start a new game.
-Use **Stats** to see wins, abandoned deals, win rate, and moves in the current
-deal for the current app session.
-The toolbar timer shows elapsed minutes and seconds; it resets on a new deal
-and pauses when you win. At launch, the rules appear over the board; choose
-**I understand — Start playing** to begin. Completing all foundations opens a
-victory dialog with your move count and time.
+For frontend development:
 
-The card-face images are stored in `assets/cards/`. Their creator, source, and
-license information is documented in [CARD-ART-CREDITS.txt](CARD-ART-CREDITS.txt).
+```sh
+cd frontend
+npm install
+npm run dev
+```
+
+The React development server runs on http://localhost:5173 and proxies API
+requests to Spring Boot.
 
 ## Run the tests
 
