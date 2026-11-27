@@ -20,6 +20,10 @@ async function api<T>(path: string, options?: RequestInit): Promise<T> {
   return response.json()
 }
 
+function formatCard(card: Card) {
+  return `${card.rankName}${SUIT_SYMBOLS[card.suit]}`
+}
+
 function formatTime(seconds: number) {
   return `${Math.floor(seconds / 60)}:${String(seconds % 60).padStart(2, '0')}`
 }
@@ -92,18 +96,19 @@ function App() {
     if (selected === null) {
       const stack = game.stacks.find((item) => item.number === number)
       if (!stack?.cards.length) {
-        setStatus('Select a stack containing a card.')
+        setStatus('That stack is empty.')
         setStatusType('normal')
         return
       }
+      const topCard = stack.cards[stack.cards.length - 1]
       setSelected(number)
-      setStatus(`Selected stack ${number}. Choose a destination.`)
+      setStatus(`Selected ${formatCard(topCard)} — click a destination, or click this card again to clear selection.`)
       setStatusType('selected')
       return
     }
     if (selected === number) {
       setSelected(null)
-      setStatus('Selection cancelled.')
+      setStatus('Selection cleared.')
       setStatusType('normal')
       return
     }
@@ -114,7 +119,7 @@ function App() {
       })
       setGame(next)
       setSelected(null)
-      setStatus(`Move complete: stack ${selected} → stack ${number}.`)
+      setStatus('Move complete.')
       setStatusType('success')
     } catch (event) {
       const message = event instanceof Error ? event.message : 'Move failed.'
@@ -128,7 +133,7 @@ function App() {
       const next = await api<Game>('/api/game/undo', { method: 'POST' })
       setGame(next)
       setSelected(null)
-      setStatus('Last move undone.')
+      setStatus('Last move undone. Select a card to move, then click its destination.')
       setStatusType('normal')
       // If we undo a winning move, reverse the win tracking
       if (gameCompleted && !next.gameOver) {
@@ -142,9 +147,10 @@ function App() {
   }
 
   function renderStack(stack: Stack) {
+    const isSelected = selected === stack.number
     return (
       <button
-        className={`stack ${stack.type} ${selected === stack.number ? 'selected' : ''}`}
+        className={`stack ${stack.type}`}
         key={stack.number}
         type="button"
         onClick={() => chooseStack(stack.number)}
@@ -156,15 +162,18 @@ function App() {
           </span>
         ) : (
           <span className="cards">
-            {stack.cards.map((card, index) => (
-              <img
-                key={`${card.rank}-${card.suit}-${index}`}
-                className="card"
-                src={`/cards/${card.image}`}
-                alt={`${card.rankName}${card.suitName}`}
-                style={{ top: stack.type === 'cascade' ? index * 24 : 0 }}
-              />
-            ))}
+            {stack.cards.map((card, index) => {
+              const isTopCard = index === stack.cards.length - 1
+              return (
+                <img
+                  key={`${card.rank}-${card.suit}-${index}`}
+                  className={`card ${isSelected && isTopCard ? 'selected-card' : ''}`}
+                  src={`/cards/${card.image}`}
+                  alt={`${card.rankName}${card.suitName}`}
+                  style={{ top: stack.type === 'cascade' ? index * 24 : 0 }}
+                />
+              )
+            })}
           </span>
         )}
         <span className="stack-number">{stack.number}</span>

@@ -89,7 +89,7 @@
   min-height: 0;
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 34px;
   padding: 16px 28px 20px;
   overflow-y: auto;
 }
@@ -116,7 +116,7 @@
 }
 
 .cascades-label {
-  margin-bottom: 2px;
+  margin-bottom: 18px;
 }
 
 .stack-row {
@@ -157,9 +157,9 @@
   align-items: flex-start;
 }
 
-.stack.selected {
-  border-color: #e8be68;
-  box-shadow: 0 0 0 3px rgba(232, 190, 104, 0.18);
+.card.selected-card {
+  outline: 3px solid #e8be68;
+  box-shadow: 0 0 0 4px rgba(232, 190, 104, 0.28);
 }
 
 .empty-label {
@@ -176,7 +176,8 @@
 .card {
   position: absolute;
   left: 50%;
-  width: 100%;
+  width: auto;
+  max-width: 100%;
   height: auto;
   max-height: 158px;
   object-fit: contain;
