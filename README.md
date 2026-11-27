@@ -5,7 +5,7 @@ Boot REST API, and a React + TypeScript interface.
 
 ## Demo
 
-https://github.com/user-attachments/assets/48a74fba-6ce7-46eb-b086-3e532f4b8062
+https://github.com/user-attachments/assets/af515ebb-d219-4cc9-967a-ce6c415df615
 
 ## Requirements
 
