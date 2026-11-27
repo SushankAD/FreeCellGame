@@ -3,6 +3,10 @@
 A FreeCell solitaire web application powered by a Java game engine, a Spring
 Boot REST API, and a React + TypeScript interface.
 
+## Demo
+
+https://github.com/user-attachments/assets/48a74fba-6ce7-46eb-b086-3e532f4b8062
+
 ## Requirements
 
 - Java Development Kit (JDK) 21 or newer
